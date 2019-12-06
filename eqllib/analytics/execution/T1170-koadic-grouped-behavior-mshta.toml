@@ -1,0 +1,24 @@
+[analytic.metadata]
+categories = ["detect"]
+confidence = "medium"
+contributors = ["Daniel Stepanic"]
+created_date = "12/04/2019"
+description = "Identifies an unordered combination of events tied to Koadic's Mshta stager."
+id = "8c238e5c-7f40-4958-b046-1e048709c9b8"
+name = "Koadic Grouped Behavior (Mshta Stager)"
+os = ["windows"]
+tactics = ["Execution", "Defense Evasion", "Command and Control"]
+tags = ["koadic"]
+techniques = ["T1170","T1085"]
+updated_date = "12/04/2019"
+references = []
+
+[analytic]
+query = '''
+join by source_ip
+  [network where process_name == "rundll32.exe"]
+  [network where process_name == "mshta.exe"]
+  [file where process_name == "rundll32.exe" and file_path == "*Content.IE5*"]
+  [process where process_name == "rundll32.exe" and parent_process_name = "wmiprvse.exe"]
+  [process where process_name == "cmd.exe" and parent_process_name = "rundll32.exe"]
+'''
