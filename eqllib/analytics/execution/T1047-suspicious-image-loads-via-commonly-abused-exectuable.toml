@@ -1,0 +1,21 @@
+[analytic.metadata]
+categories = ["detect"]
+confidence = "low"
+contributors = ["Daniel Stepanic"]
+created_date = "12/04/2019"
+description = "Identifies suspicious image load events tied to Koadic stager processes."
+id = "45835773-d859-4d44-8ef6-5d95f7538612"
+name = "Suspicious Image Loads via Commonly Abused Executables"
+os = ["windows"]
+tactics = ["Execution"]
+tags = ["koadic"]
+techniques = ["T1047","T1064"]
+updated_date = "12/04/2019"
+references = []
+
+[analytic]
+query = '''
+sequence by unique_pid
+  [process where process_name in ("mshta.exe", "rundll32.exe")]
+  [image_load where image_name in ("jscript9.dll", "msxml6.dll", "npmproxy.dll", "winhttp.dll", "wmiutils.dll")]
+'''
