@@ -1,0 +1,26 @@
+[analytic.metadata]
+categories = ["detect"]
+confidence = "medium"
+contributors = ["Daniel Stepanic"]
+created_date = "12/04/2019"
+description = "Identifies use of CompMgmtLauncher.exe to bypass User Account Control. Adversaries use this technique to execute privileged processes."
+id = "7efc7afe-8396-4bf0-ac7d-1a860a401d22"
+name = "Bypass UAC via CompMgmtLauncher"
+os = ["windows"]
+tactics = ["Privilege Escalation"]
+tags = ["koadic"]
+techniques = ["T1088"]
+updated_date = "12/04/2019"
+references = ["https://enigma0x3.net/2016/08/15/fileless-uac-bypass-using-eventvwr-exe-and-registry-hijacking"]
+
+[analytic]
+query = '''
+sequence with maxspan=10s
+  [registry where length(bytes_written_string) > 0
+    and key_type in ("sz", "expandSz")
+    and key_path == "*\\mscfile\\shell\\open\\command\\"
+    and user_name != "SYSTEM"]
+ [process where process_path == "C:\\Windows\\System32\\CompMgmtLauncher.exe"]
+ [process where process_name in ("mshta.exe", "rundll32.exe","regsvr32.exe","wmic.exe")
+    and integrity_level == "high"]
+'''
