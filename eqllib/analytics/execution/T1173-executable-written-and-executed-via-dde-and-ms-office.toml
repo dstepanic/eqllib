@@ -8,6 +8,7 @@ id = "2b512bec-b28d-4a84-9253-2c691bedb7bc"
 name = "Executable Written and Executed by Microsoft Office Applications"
 os = ["windows"]
 tactics = ["Execution"]
+tags = ["koadic"]
 techniques = ["T1204","T1173"]
 updated_date = "12/04/2019"
 references = []
