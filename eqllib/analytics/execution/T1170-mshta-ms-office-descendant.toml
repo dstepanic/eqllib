@@ -17,5 +17,5 @@ references = ["https://unit42.paloaltonetworks.com/unit42-sofacy-groups-parallel
 query = '''
 process where subtype.create and process_name == "mshta.exe"
   and descendant of
-    [process where process_name in ("outlook.exe", "winword.exe", "excel.exe", "powerpnt.exe"]
+    [process where process_name in ("outlook.exe", "winword.exe", "excel.exe", "powerpnt.exe")]
 '''

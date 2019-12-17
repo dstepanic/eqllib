@@ -16,11 +16,7 @@ references = ["https://enigma0x3.net/2016/08/15/fileless-uac-bypass-using-eventv
 [analytic]
 query = '''
 sequence with maxspan=10s
-  [registry where length(bytes_written_string) > 0
-    and key_type in ("sz", "expandSz")
-    and key_path == "*\\mscfile\\shell\\open\\command\\"
-    and user_name != "SYSTEM"]
+ [registry where registry_path == "*\\mscfile\\shell\\open\\command\\" and user_name != "SYSTEM"]
  [process where process_path == "C:\\Windows\\System32\\CompMgmtLauncher.exe"]
- [process where process_name in ("mshta.exe", "rundll32.exe","regsvr32.exe","wmic.exe")
-    and integrity_level == "high"]
+ [process where process_name in ("mshta.exe", "rundll32.exe","regsvr32.exe","wmic.exe")]
 '''
