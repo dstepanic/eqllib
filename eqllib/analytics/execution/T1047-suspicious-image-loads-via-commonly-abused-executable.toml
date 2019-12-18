@@ -16,6 +16,6 @@ references = []
 [analytic]
 query = '''
 sequence by unique_pid
-  [process where process_name in ("mshta.exe", "rundll32.exe")]
+  [process where subtype.create and process_name in ("mshta.exe", "rundll32.exe")]
   [image_load where image_name in ("jscript9.dll", "msxml6.dll", "npmproxy.dll", "winhttp.dll", "wmiutils.dll")]
 '''

@@ -18,7 +18,7 @@ query = '''
 join
   [network where process_name == "rundll32.exe"]
   [network where process_name == "mshta.exe"]
-  [file where process_name == "rundll32.exe" and ( file_path == "*Content.IE5*" or file_path == "*INetCache*" )]
-  [process where process_name == "rundll32.exe" and parent_process_name = "wmiprvse.exe"]
-  [process where process_name == "cmd.exe" and parent_process_name = "rundll32.exe"]
+  [file where subtype.create and process_name == "rundll32.exe" and ( file_path == "*Content.IE5*" or file_path == "*INetCache*" )]
+  [process where subtype.create and process_name == "rundll32.exe" and parent_process_name = "wmiprvse.exe"]
+  [process where subtype.create and process_name == "cmd.exe" and parent_process_name = "rundll32.exe"]
 '''

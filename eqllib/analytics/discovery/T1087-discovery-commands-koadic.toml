@@ -16,10 +16,10 @@ references = []
 [analytic]
 query = '''
 sequence by user_name with maxspan=10m
- [process where child of [process where parent_process_name == "rundll32.exe"]
+ [process where subtype.create and child of [process where parent_process_name == "rundll32.exe"]
      and process_name in ("hostname.exe", "ipconfig.exe", "net.exe", "net1.exe", "tasklist.exe", "whoami.exe") and
      descendant of [process where parent_process_name == "wmiprvse.exe"]]
- [process where child of [process where parent_process_name == "rundll32.exe"]
+ [process where subtype.create and child of [process where parent_process_name == "rundll32.exe"]
      and process_name in ("hostname.exe", "ipconfig.exe", "net.exe", "net1.exe", "tasklist.exe", "whoami.exe") and
      descendant of [process where parent_process_name == "wmiprvse.exe"]]
 | unique user_name

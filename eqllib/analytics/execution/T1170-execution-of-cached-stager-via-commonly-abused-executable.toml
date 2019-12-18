@@ -15,6 +15,6 @@ references = []
 
 [analytic]
 query = '''
-file where process_name in ("mshta.exe","regsvr32.exe", "rundll32.exe", "wmic.exe")
+file where subtype.create and process_name in ("mshta.exe","regsvr32.exe", "rundll32.exe", "wmic.exe")
   and ( file_path == "*Content.IE5*" or file_path == "*INetCache*" )
 '''
