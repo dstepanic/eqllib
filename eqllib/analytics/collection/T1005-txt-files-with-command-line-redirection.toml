@@ -1,0 +1,23 @@
+[analytic.metadata]
+categories = ["detect"]
+confidence = "medium"
+contributors = ["Daniel Stepanic"]
+created_date = "12/04/2019"
+description = "Identifies Koadic's use of redirecting command output to plaintext files."
+id = "7c7f3114-7bdd-4477-a4e0-b5105b6babd8"
+name = "Creation of TXT File via cmd.exe with Command Line Redirection"
+os = ["windows"]
+tactics = ["Collection"]
+tags = ["koadic"]
+techniques = ["T1074"]
+updated_date = "12/04/2019"
+references = []
+
+[analytic]
+query = '''
+sequence with maxspan=5s by unique_pid
+  [process where subtype.create and process_name == "cmd.exe" and command_line == "*>*"]
+  [file where file_name == "*.txt"
+    and event of [process where process_name == "cmd.exe" and command_line == "*>*"]
+      and descendant of [process where parent_process_name == "wmiprvse.exe"]]
+'''

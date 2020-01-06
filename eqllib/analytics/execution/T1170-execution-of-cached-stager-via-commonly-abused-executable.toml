@@ -1,0 +1,20 @@
+[analytic.metadata]
+categories = ["detect"]
+confidence = "medium"
+contributors = ["Daniel Stepanic"]
+created_date = "12/04/2019"
+description = "Identifies the execution of a file from Internet Explorer's Temporary Internet Files cache by a commonly abused executable. This behavior is indicative of a previously cached stager being executed."
+id = "2369d95e-d744-4941-b2bd-bdfb10685bd6"
+name = "Execution of Cached Stager via Commonly Abused Executable"
+os = ["windows"]
+tactics = ["Execution", "Defense Evasion"]
+tags = ["koadic"]
+techniques = ["T1170", "T1117", "T1085", "T1047"]
+updated_date = "12/04/2019"
+references = []
+
+[analytic]
+query = '''
+file where subtype.create and process_name in ("mshta.exe","regsvr32.exe", "rundll32.exe", "wmic.exe")
+  and ( file_path == "*Content.IE5*" or file_path == "*INetCache*" )
+'''

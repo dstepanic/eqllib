@@ -1,0 +1,22 @@
+[analytic.metadata]
+categories = ["detect"]
+confidence = "medium"
+contributors = ["Daniel Stepanic"]
+created_date = "12/04/2019"
+description = "Identifies the execution of and subsequent network connection from a commonly abused Windows executable. This behavior is indicative of a stager being executed on an endpoint and a network connection being established to download additional malicious code."
+id = "2e6b3e3f-154d-4c26-ba5b-eacfc7f1a0ef"
+name = "Execution of Stager via Commonly Abused Executable"
+os = ["windows"]
+tactics = ["Execution", "Defense Evasion"]
+tags = ["koadic"]
+techniques = ["T1170", "T1117", "T1085", "T1047"]
+updated_date = "12/04/2019"
+references = []
+
+[analytic]
+query = '''
+sequence by unique_pid
+  [process where subtype.create and process_name in ("mshta.exe", "regsvr32.exe", "rundll32.exe", "wmic.exe")]
+  [network where process_name in ("mshta.exe", "regsvr32.exe", "rundll32.exe", "wmic.exe")]
+| filter events[0].process_name == events[1].process_name
+'''
