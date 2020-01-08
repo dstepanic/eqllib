@@ -11,7 +11,6 @@ tactics = ["Execution"]
 tags = ["koadic"]
 techniques = ["T1047","T1064"]
 updated_date = "12/04/2019"
-references = []
 
 [analytic]
 query = '''

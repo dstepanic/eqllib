@@ -11,7 +11,6 @@ tactics = ["Discovery"]
 tags = ["koadic"]
 techniques = ["T1087","T1096","T1033"]
 updated_date = "12/04/2019"
-references = []
 
 [analytic]
 query = '''
