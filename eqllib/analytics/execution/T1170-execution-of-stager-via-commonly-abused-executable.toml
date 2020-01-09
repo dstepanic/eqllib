@@ -17,5 +17,4 @@ query = '''
 sequence by unique_pid
   [process where subtype.create and process_name in ("mshta.exe", "regsvr32.exe", "rundll32.exe", "wmic.exe")]
   [network where process_name in ("mshta.exe", "regsvr32.exe", "rundll32.exe", "wmic.exe")]
-| filter events[0].process_name == events[1].process_name
 '''

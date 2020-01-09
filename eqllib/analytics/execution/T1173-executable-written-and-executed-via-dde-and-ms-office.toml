@@ -15,7 +15,7 @@ references = ["https://unit42.paloaltonetworks.com/unit42-sofacy-groups-parallel
 
 [analytic]
 query = '''
-sequence with maxspan=5m
+sequence with maxspan=3d
   [file where file_name == "*.exe" and process_name in ("winword.exe", "excel.exe", "powerpnt.exe")] by file_path
   [process where true] by process_path
 '''

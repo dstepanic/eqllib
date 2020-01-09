@@ -16,8 +16,7 @@ references = []
 [analytic]
 query = '''
 sequence with maxspan=5s by unique_pid
-  [process where subtype.create and process_name == "cmd.exe" and command_line == "*>*"]
-  [file where file_name == "*.txt"
-    and event of [process where process_name == "cmd.exe" and command_line == "*>*"]
-      and descendant of [process where parent_process_name == "wmiprvse.exe"]]
+  [process where subtype.create and process_name == "cmd.exe" and command_line == "*>*" and
+    descendant of [process where process_name == "wmiprvse.exe"]]
+  [file where subtype.create and wildcard(file_name, "*.txt", "*.log")]
 '''
