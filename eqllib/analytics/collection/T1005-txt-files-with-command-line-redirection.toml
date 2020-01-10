@@ -3,7 +3,16 @@ categories = ["detect"]
 confidence = "medium"
 contributors = ["Daniel Stepanic"]
 created_date = "12/04/2019"
-description = "Identifies Koadic's use of redirecting command output to plaintext files."
+description = """
+Identifies command execution via WMI with redirected output. WMI provides a method to execute a process on a local or remote host, but does not expose a way to read any console output. To get around this restriction, some administrators or attackers will execute ``cmd.exe`` with output redirection to a file. Then the file can be retrieved to read program output.
+
+When this happens, the process tree will resemble this:
+.. code-block::
+
+    * svchost.exe
+     `-- wmiprvse.exe
+        `-- cmd.exe systeminfo.exe > C:\wmi-temp.log
+             `-- systeminfo.exe
 id = "7c7f3114-7bdd-4477-a4e0-b5105b6babd8"
 name = "WMI Execution with Command Line Redirection"
 os = ["windows"]
