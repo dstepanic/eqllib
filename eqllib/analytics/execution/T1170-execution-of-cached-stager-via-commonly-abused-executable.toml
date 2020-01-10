@@ -11,6 +11,7 @@ tactics = ["Execution", "Defense Evasion"]
 tags = ["koadic"]
 techniques = ["T1170", "T1117", "T1085", "T1047"]
 updated_date = "12/04/2019"
+references = ["https://www.elastic.co/blog/embracing-offensive-tooling-building-detections-against-koadic-using-eql"]
 
 [analytic]
 query = '''

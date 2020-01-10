@@ -11,10 +11,11 @@ tactics = ["Execution"]
 tags = ["koadic"]
 techniques = ["T1047","T1064"]
 updated_date = "12/04/2019"
+references = ["https://www.elastic.co/blog/embracing-offensive-tooling-building-detections-against-koadic-using-eql"]
 
 [analytic]
 query = '''
 sequence by unique_pid
   [process where subtype.create and process_name in ("mshta.exe", "rundll32.exe")]
-  [image_load where image_name in ("jscript9.dll", "msxml6.dll", "npmproxy.dll", "winhttp.dll", "wmiutils.dll")]
+  [image_load where image_name in ("msxml6.dll", "winhttp.dll", "wmiutils.dll")]
 '''

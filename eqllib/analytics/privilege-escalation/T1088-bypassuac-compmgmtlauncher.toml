@@ -11,12 +11,11 @@ tactics = ["Privilege Escalation"]
 tags = ["koadic"]
 techniques = ["T1088"]
 updated_date = "12/04/2019"
-references = ["https://enigma0x3.net/2016/08/15/fileless-uac-bypass-using-eventvwr-exe-and-registry-hijacking"]
+references = ["https://enigma0x3.net/2016/08/15/fileless-uac-bypass-using-eventvwr-exe-and-registry-hijacking","https://www.elastic.co/blog/embracing-offensive-tooling-building-detections-against-koadic-using-eql"]
 
 [analytic]
 query = '''
 sequence with maxspan=10s
  [registry where registry_path == "*\\mscfile\\shell\\open\\command*" and user_name != "SYSTEM"]
- [process where subtype.create and process_path == "C:\\Windows\\System32\\CompMgmtLauncher.exe"]
- [process where subtype.create and process_name in ("mshta.exe", "rundll32.exe","regsvr32.exe","wmic.exe")]
+ [process where subtype.create and parent_process_path == "C:\\Windows\\System32\\CompMgmtLauncher.exe"
 '''

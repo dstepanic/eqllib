@@ -11,7 +11,7 @@ tactics = ["Execution"]
 tags = ["koadic"]
 techniques = ["T1204","T1173"]
 updated_date = "12/04/2019"
-references = ["https://unit42.paloaltonetworks.com/unit42-sofacy-groups-parallel-attacks"]
+references = ["https://www.elastic.co/blog/embracing-offensive-tooling-building-detections-against-koadic-using-eql"]
 
 [analytic]
 query = '''
