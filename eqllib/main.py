@@ -56,7 +56,7 @@ def print_table(results, columns):
     print(table)
 
 
-def run_query(data_source, query, input_file, file_format, encoding, config):
+def run_query(data_source, query, input_file, file_format, encoding, config, columns):
     """Convert a normalized query to a specific data source."""
     if data_source is None:
         data_source = next(iter(config.domains))
@@ -69,9 +69,18 @@ def run_query(data_source, query, input_file, file_format, encoding, config):
 
     events = stream_events(input_file, file_format, encoding)
 
-    engine = NormalizedEngine({'print': True})
-    engine.add_query(query)
-    engine.stream_events(source.data_normalizer(e) for e in events)
+    if not columns:
+        engine = NormalizedEngine({'print': True})
+        engine.add_query(query)
+        engine.stream_events(source.data_normalizer(e) for e in events)
+
+    else:
+        results = []
+        engine = NormalizedEngine({'flatten': True})
+        engine.add_query(query)
+        engine.add_output_hook(lambda e: results.append(e.data))
+        engine.stream_events(source.data_normalizer(e) for e in events)
+        print_table(results, columns)
 
 
 def survey_analytics(data_source, input_file, file_format, encoding, analytics, count, config, columns):
