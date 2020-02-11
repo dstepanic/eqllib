@@ -1,0 +1,23 @@
+[analytic.metadata]
+categories = ["detect"]
+confidence = "low"
+contributors = ["Daniel Stepanic"]
+created_date = "02/12/2020"
+description = "Microsoft's Open Office XML (OOXML) specification defines an XML-based format for Office documents. Adversaries may abuse this technology to initially conceal malicious code to be executed via documents. This rule specifically looks for Dynamic DNS providers used previously by GAMAREDON GROUP."
+id = "0cc5de31-9d06-4106-803d-b4f617bfbf3c"
+name = "MS Office Template Injection (GAMAREDON GROUP)"
+os = ["windows"]
+tactics = ["Defense Evasion"]
+tags = ["Gamaredon Group"]
+techniques = ["T1221"]
+updated_date = "02/12/2020"
+references = ["https://www.elastic.co/blog/playing-defense-against-gamaredon-group"]
+
+[analytic]
+query = '''
+sequence by unique_pid
+  [process where process_name in ("winword.exe", "excel.exe", "powerpnt.exe")]
+  [network where event of
+    [dns where wildcard(query_name, "*.ddns.net", "*.hopto.org")]]
+| unique unique_pid
+'''
